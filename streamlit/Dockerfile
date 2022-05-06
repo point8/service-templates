@@ -1,14 +1,19 @@
 FROM ubuntu:20.04
 LABEL maintainer="Point 8 GmbH <kontakt@point-8.de>"
 
+WORKDIR /app
+
 # No user feedback during installation
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Berlin
 
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 # PYTHON, PYENV, POETRY
-ARG DEFAULT_PYTHON="3.10.2"
 ARG PYENV_INSTALLER="https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer"
-ARG POETRY_INSTALLER="https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py"
+ARG POETRY_INSTALLER="https://install.python-poetry.org"
 
 ENV CI=true
 ENV PYENV_ROOT="/.pyenv"
@@ -57,13 +62,24 @@ RUN apt-get update -y &&\
     pip --version &&\
     ln -fs /usr/share/zoneinfo/$TZ /etc/localtime &&\
     dpkg-reconfigure -f noninteractive tzdata &&\
-    locale-gen en_US.UTF-8 &&\
+    locale-gen ${LANG} &&\
     curl -L $PYENV_INSTALLER | bash &&\
-    pyenv install ${DEFAULT_PYTHON} &&\
-    pyenv global "${DEFAULT_PYTHON}" &&\
     curl -sSL $POETRY_INSTALLER | python &&\
     poetry config virtualenvs.in-project true
 
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+COPY .python-version .
+RUN pyenv install -s "$(cat .python-version)" &&\
+    pyenv global "$(cat .python-version)"
+
+COPY poetry.lock pyproject.toml ./
+
+RUN ls -lah && poetry install && ls -lah && ls -lah .venv
+
+COPY . .
+
+RUN ls -lah && ls -lah .venv
+
+EXPOSE 8501
+
+ENTRYPOINT ["poetry", "run", "streamlit", "run"]
+CMD ["app.py"]
