@@ -73,11 +73,9 @@ RUN pyenv install -s "$(cat .python-version)" &&\
 
 COPY poetry.lock pyproject.toml ./
 
-RUN ls -lah && poetry install && ls -lah && ls -lah .venv
+RUN poetry install
 
 COPY . .
-
-RUN ls -lah && ls -lah .venv
 
 EXPOSE 8501
 
