@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  streamlit:
+    build: streamlit/
+    restart: unless-stopped
+    expose:
+      - 8501
+    networks:
+      - local
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      - local
+      - web
+    depends_on:
+      - streamlit
+
+networks:
+  web:
+    external: true
+  local:
+    external: false
+    driver: bridge

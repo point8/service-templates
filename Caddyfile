@@ -1,0 +1,6 @@
+{
+    email admin@point-8.de
+}
+localhost {
+    reverse_proxy streamlit:8501
+}
