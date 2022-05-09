@@ -69,15 +69,19 @@ RUN apt-get update -y &&\
 
 COPY .python-version .
 RUN pyenv install -s "$(cat .python-version)" &&\
-    pyenv global "$(cat .python-version)"
+    pyenv global "$(cat .python-version)" &&\
+    pyenv local "$(cat .python-version)" &&\
+    pyenv versions
 
-COPY poetry.lock pyproject.toml ./
-
-RUN poetry install
+RUN ls -lah && pyenv versions
 
 COPY . .
 
+RUN poetry env use "$(cat .python-version)" &&\
+    poetry install &&\
+    poetry run python --version
+
 EXPOSE 8501
 
-ENTRYPOINT ["poetry", "run", "streamlit", "run"]
-CMD ["app.py"]
+ENTRYPOINT []
+CMD ["poetry", "run", "streamlit", "run", "app.py"]

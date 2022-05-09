@@ -1,8 +1,9 @@
-version: "3.7"
+version: "3.9"
 
 services:
   streamlit:
-    build: streamlit/
+    build:
+      context: ./streamlit
     restart: unless-stopped
     expose:
       - 8501
