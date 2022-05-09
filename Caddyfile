@@ -3,4 +3,8 @@
 }
 localhost {
     reverse_proxy streamlit:8501
+
+    basicauth {
+        guest JDJhJDE0JGFtQmtydjlLajExWVhZcHVSTUN2R09JZDZ2ei5WQWhQejRCOHFVRlJNT25YYXU0Y2VtNTZX
+    }
 }
