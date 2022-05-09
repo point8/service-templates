@@ -1,6 +1,6 @@
 # streamlit-standalone-template
 
-## Run your own TLS secured service in three easy steps:
+## Run your own TLS secured service in not that many easy steps:
 
 1. Open a [new Issue](https://git.point-8.de/it/tachyon/-/issues/new) and request the `<subdomain>.point8.cloud` you need and if you have any requirements on the computational part (If not, you get a [CPX11](https://www.hetzner.com/de/cloud)). Assign the Issue to Christophe. Then wait for the issue to be resolved.
 
@@ -33,7 +33,7 @@ basicauth {
 To create a new password use e.g.
 
 ```
-docker run -it caddy caddy hash-password --plaintext 1-super-secret-pa$$word
+docker run -it caddy:latest caddy hash-password --plaintext 1-super-secret-pa$$word
 ```
 
-Feel free to adapt the settings to your needs.
+Feel free to adapt the set credentials to your needs.
