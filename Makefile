@@ -6,9 +6,11 @@ init_docker_networks:
 
 init_domain_name:
 	sed -i -- 's/DOMAIN_PLACEHOLDER/$(shell cat CNAME)/g' Caddyfile
+	rm Caddyfile--
 
 init_service_name:
 	sed -i -- 's/SERVICE_PLACEHOLDER/$(shell cat SERVICE)/g' Caddyfile
+	rm Caddyfile--
 
 deploy:
 	scp -r $(shell cat SERVICE) Caddyfile docker-compose.yml $(shell cat CNAME):
