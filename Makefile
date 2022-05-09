@@ -1,4 +1,4 @@
-init: init_docker_networks init_domain_name init_service_name
+init: init_domain_name init_service_name
 
 init_docker_networks:
 	docker network create web
