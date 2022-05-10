@@ -1,8 +1,8 @@
 {
     email admin@point-8.de
 }
-DOMAIN_PLACEHOLDER {
-    reverse_proxy SERVICE_PLACEHOLDER:8501
+localhost {
+    reverse_proxy streamlit:8501
 
     basicauth {
         guest JDJhJDE0JGFtQmtydjlLajExWVhZcHVSTUN2R09JZDZ2ei5WQWhQejRCOHFVRlJNT25YYXU0Y2VtNTZX
