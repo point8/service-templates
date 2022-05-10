@@ -2,7 +2,7 @@
 
 ## Run your own TLS secured streamlit service with docker
 
-Running your streamlit app as a cloud service with a simple password authentication and secured by HTTPS.
+Running your [streamlit](https://streamlit.io/) app as a cloud service with a simple password authentication and secured by HTTPS.
 
 The repository consists of a streamlit app and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
 
@@ -10,7 +10,7 @@ The repository consists of a streamlit app and a reverse proxy to automatically 
 
 Fork the repo and then go through the following parts one by one.
 
-At the moment only a [`streamlit](https://streamlit.io/) app is included in the template. This can in principle be extended to other services.
+At the moment only a streamlit app is included in the template. This can in principle be extended to other services.
 
 ### Server and Domain
 
