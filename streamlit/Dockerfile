@@ -75,7 +75,7 @@ RUN pyenv install -s "$(cat .python-version)" &&\
 
 RUN ls -lah && pyenv versions
 
-COPY pyproject.toml poetry.lock .
+COPY pyproject.toml poetry.lock ./
 
 RUN poetry env use "$(cat .python-version)" &&\
     poetry install &&\
