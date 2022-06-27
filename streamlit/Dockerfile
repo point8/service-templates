@@ -81,7 +81,7 @@ RUN poetry env use "$(cat .python-version)" &&\
     poetry install &&\
     poetry run python --version
 
-COPY . .
+COPY . ./
 
 EXPOSE 8501
 
