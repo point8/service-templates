@@ -86,4 +86,4 @@ COPY . ./
 EXPOSE 8866
 
 ENTRYPOINT []
-CMD ["poetry", "run", "voila", "example.ipynb"]
+CMD ["poetry", "run", "voila", "--no-browser", "--Voila.ip='0.0.0.0'", "--port=8866", "example.ipynb"]
