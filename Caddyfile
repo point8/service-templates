@@ -3,6 +3,7 @@
 }
 localhost {
     reverse_proxy streamlit:8501
+    # reverse_proxy voila:8866
 
     basicauth {
         guest JDJhJDE0JGFtQmtydjlLajExWVhZcHVSTUN2R09JZDZ2ei5WQWhQejRCOHFVRlJNT25YYXU0Y2VtNTZX

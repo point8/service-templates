@@ -9,6 +9,14 @@ services:
       - 8501
     networks:
       - local
+  voila:
+    build:
+      context: ./voila
+    restart: unless-stopped
+    expose:
+      - 8866
+    networks:
+      - local
   caddy:
     image: caddy:latest
     restart: unless-stopped
@@ -22,6 +30,7 @@ services:
       - web
     depends_on:
       - streamlit
+      - voila
 
 networks:
   web:
