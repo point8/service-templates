@@ -72,7 +72,7 @@ Make sure to update your dependencies and keep the `pyproject.toml` and the `poe
 If you somehow need to change the command the voila app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
 
 ```
-CMD ["poetry", "run", "voila", "example.ipynb"]
+CMD ["poetry", "run", "voila", "--no-browser", "--Voila.ip='0.0.0.0'", "--port=8866", "example.ipynb"]
 ```
 
 If you remove the last part (`"example.ipynb"`), the user gets a list of all available notebooks.
