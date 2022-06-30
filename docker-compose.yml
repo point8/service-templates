@@ -1,6 +1,6 @@
 version: "3.9"
 
-services:
+services:  # remove all unused services
   streamlit:
     build:
       context: ./streamlit
@@ -28,7 +28,7 @@ services:
     networks:
       - local
       - web
-    depends_on:
+    depends_on:  # remove all unused dependencies
       - streamlit
       - voila
 
