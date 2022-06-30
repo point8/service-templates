@@ -87,6 +87,8 @@ Everything is configured in the `Caddyfile`.
 * If you want to test everything locally, you can leave the `Caddyfile` as is, if you deploy it to a server you need to
 * change the domain name in line 4 from `localhost` to `your_subdomain.point8.cloud`.
 
+As long as you test it locally you have to accept/override your browser warnings caused by an "insecure" TLS connection due to an untrusted self-signed certificate.
+
 #### Change basic authentication
 
 The authentication to the service is done using HTTP basic auth.
