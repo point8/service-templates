@@ -2,15 +2,15 @@
 
 ## Run your own TLS secured streamlit service with docker
 
-Running your [streamlit](https://streamlit.io/) app as a cloud service with a simple password authentication and secured by HTTPS.
+Running your [streamlit](https://streamlit.io/) or [voila](https://voila.readthedocs.io/en/stable/index.html) app as a cloud service with a simple password authentication and secured by HTTPS.
 
-The repository consists of a streamlit app and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
+The repository consists of a streamlit and voila app and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
 
 ## How to start?
 
 Fork the repo and then go through the following parts one by one.
 
-At the moment only a streamlit app is included in the template. This can in principle be extended to other services.
+At the moment only a streamlit and a voila app are included in the template. This can in principle be extended to other services.
 
 ### Server and Domain
 
@@ -41,7 +41,17 @@ Host your_subdomain.point8.cloud
 
 Python is handeled by [`pyenv`](). The version is fixed in the `.python-version` file by calling `pyenv local X.Y.Z`.
 
-### Streamlit
+### Service
+
+There are different service templates available. See below.
+
+After you decided what kind of service you want to use, you have to adapt your file in two places:
+
+1. Remove all unused services from the `docker-compose.yml` and also remove the dependencies (`depends_on:`) under the `caddy:` service config.
+2. Pick the correct `reverse_proxy` in the `Caddyfile`
+
+
+#### Streamlit
 
 Everything is located in the `streamlit/` directory. Feel free to add your own code. A basic app can be found in `streamlit/app.py`.
 
@@ -53,6 +63,21 @@ If you somehow need to change the command the streamlit app is run, you need to 
 CMD ["poetry", "run", "streamlit", "run", "app.py"]
 ```
 
+#### Voilà
+
+Everything is located in the `voila/` directory. Feel free to add your own code. A basic app can be found in `voila/example.ipynb`.
+
+Make sure to update your dependencies and keep the `pyproject.toml` and the `poetry.lock` file up to date. Also make sure, that the Python version dependency is the same as set in `.python-version`.
+
+If you somehow need to change the command the voila app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
+
+```
+CMD ["poetry", "run", "voila", "--no-browser", "--Voila.ip='0.0.0.0'", "--port=8866", "example.ipynb"]
+```
+
+If you remove the last part (`"example.ipynb"`), the user gets a list of all available notebooks.
+
+
 ### Reverse Proxy and TLS
 
 [Caddy](https://caddyserver.com/) is used to act as a reverse proxy, handle TLS certificates, and forward the user from the standard HTTP(s) ports to your hidden service in the background.
@@ -61,6 +86,8 @@ Everything is configured in the `Caddyfile`.
 
 * If you want to test everything locally, you can leave the `Caddyfile` as is, if you deploy it to a server you need to
 * change the domain name in line 4 from `localhost` to `your_subdomain.point8.cloud`.
+
+As long as you test it locally you have to accept/override your browser warnings caused by an "insecure" TLS connection due to an untrusted self-signed certificate.
 
 #### Change basic authentication
 

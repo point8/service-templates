@@ -19,7 +19,7 @@ RUN poetry env use "$(cat .python-version)" &&\
 
 COPY . ./
 
-EXPOSE 8501
+EXPOSE 8866
 
 ENTRYPOINT []
-CMD ["poetry", "run", "streamlit", "run", "app.py"]
+CMD ["poetry", "run", "voila", "--no-browser", "--Voila.ip='0.0.0.0'", "--port=8866", "example.ipynb"]

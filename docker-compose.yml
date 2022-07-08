@@ -1,12 +1,20 @@
 version: "3.9"
 
-services:
+services:  # remove all unused services
   streamlit:
     build:
       context: ./streamlit
     restart: unless-stopped
     expose:
       - 8501
+    networks:
+      - local
+  voila:
+    build:
+      context: ./voila
+    restart: unless-stopped
+    expose:
+      - 8866
     networks:
       - local
   caddy:
@@ -20,8 +28,9 @@ services:
     networks:
       - local
       - web
-    depends_on:
+    depends_on:  # remove all unused dependencies
       - streamlit
+      - voila
 
 networks:
   web:
