@@ -106,10 +106,12 @@ basicauth {
 To create a new password use e.g.
 
 ```
-docker run -it caddy:latest caddy hash-password --plaintext 1-super-secret-pa$$word
+docker run -it caddy:latest caddy hash-password --plaintext "1-super-secret-pa$$word"
 ```
 
-Feel free to adapt the set credentials to your needs.
+If you omit the `--plaintext` option, you can type in the password interactively.
+
+Feel free to adapt the set credentials to your needs. Remember to update the username and password hash in the `Caddyfile` after you generated new credentials.
 
 ### Deployment
 
@@ -125,4 +127,9 @@ In order to deploy your service, you need to login into your server using SSH.
     ```
     docker-compose up --build
     ```
-* If you make changes, update the repository on the server and repead the last step.
+* If you make changes, update the repository on the server and repeat the last step.
+* Use `docker-compose start/stop` to start and stop your service and `docker-copose down` to stop it and remove all containers
+* If you are satisfied, you can run everything as a daemon with
+    ```
+    docker-compose up --detach
+    ```
