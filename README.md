@@ -2,9 +2,9 @@
 
 ## Run your own TLS secured streamlit service with docker
 
-Running your [streamlit](https://streamlit.io/) or [voila](https://voila.readthedocs.io/en/stable/index.html) app as a cloud service with a simple password authentication and secured by HTTPS.
+Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedocs.io/en/stable/index.html) or [dash](https://dash.plotly.com/) app as a cloud service with a simple password authentication and secured by HTTPS.
 
-The repository consists of a streamlit and voila app and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
+The repository consists of example apps and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
 
 ## How to start?
 
@@ -77,6 +77,17 @@ CMD ["poetry", "run", "voila", "--no-browser", "--Voila.ip='0.0.0.0'", "--port=8
 
 If you remove the last part (`"example.ipynb"`), the user gets a list of all available notebooks.
 
+### Dash
+
+Everything is located in the `dash/` directory. Feel free to add your own code. A basic app can be found in `dash/example.py`.
+
+Make sure to update your dependencies and keep the `pyproject.toml` and the `poetry.lock` file up to date. Also make sure, that the Python version dependency is the same as set in `.python-version`.
+
+If you somehow need to change the command the dash app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
+
+```
+CMD ["poetry", "run", "gunicorn", "example:server", "-b", ":8050"]
+```
 
 ### Reverse Proxy and TLS
 

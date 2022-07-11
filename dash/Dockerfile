@@ -22,4 +22,4 @@ COPY . ./
 EXPOSE 8050
 
 ENTRYPOINT []
-CMD ["poetry", "run", "gunicorn", "example:server", "-b=':8050'"]
+CMD ["poetry", "run", "gunicorn", "example:server", "-b", ":8050"]
