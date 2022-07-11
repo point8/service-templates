@@ -15,6 +15,7 @@ At the moment
 - voila
 - dash
 - FastAPI
+
 templates are included. Feel free to add another one by opening a MR.
 
 ### Server and Domain
