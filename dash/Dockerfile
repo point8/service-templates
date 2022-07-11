@@ -19,7 +19,7 @@ RUN poetry env use "$(cat .python-version)" &&\
 
 COPY . ./
 
-EXPOSE 8080
+EXPOSE 8050
 
 ENTRYPOINT []
-CMD ["poetry", "run", "uvicorn", "example:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["poetry", "run", "gunicorn", "example:server", "-b", ":8050"]
