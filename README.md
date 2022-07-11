@@ -8,9 +8,14 @@ The repository consists of example apps and a reverse proxy to automatically han
 
 ## How to start?
 
-Fork the repo and then go through the following parts one by one.
+Fork the repo and then go through the following parts one by one. Please read through the whole README once before touching anything.
 
-At the moment only a streamlit and a voila app are included in the template. This can in principle be extended to other services.
+At the moment
+- streamlit
+- voila
+- dash
+- fastAPI
+templates are included. Feel free to add another one by opening a MR.
 
 ### Server and Domain
 
@@ -50,12 +55,11 @@ After you decided what kind of service you want to use, you have to adapt your f
 1. Remove all unused services from the `docker-compose.yml` and also remove the dependencies (`depends_on:`) under the `caddy:` service config.
 2. Pick the correct `reverse_proxy` in the `Caddyfile`
 
+Make sure to update your dependencies and keep the `pyproject.toml` and the `poetry.lock` files up to date. Also make sure, that the Python version dependency is the same as set in `.python-version`.
 
 #### Streamlit
 
 Everything is located in the `streamlit/` directory. Feel free to add your own code. A basic app can be found in `streamlit/app.py`.
-
-Make sure to update your dependencies and keep the `pyproject.toml` and the `poetry.lock` file up to date. Also make sure, that the Python version dependency is the same as set in `.python-version`.
 
 If you somehow need to change the command the streamlit app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
 
@@ -66,8 +70,6 @@ CMD ["poetry", "run", "streamlit", "run", "app.py"]
 #### Voilà
 
 Everything is located in the `voila/` directory. Feel free to add your own code. A basic app can be found in `voila/example.ipynb`.
-
-Make sure to update your dependencies and keep the `pyproject.toml` and the `poetry.lock` file up to date. Also make sure, that the Python version dependency is the same as set in `.python-version`.
 
 If you somehow need to change the command the voila app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
 
@@ -80,8 +82,6 @@ If you remove the last part (`"example.ipynb"`), the user gets a list of all ava
 ### Dash
 
 Everything is located in the `dash/` directory. Feel free to add your own code. A basic app can be found in `dash/example.py`.
-
-Make sure to update your dependencies and keep the `pyproject.toml` and the `poetry.lock` file up to date. Also make sure, that the Python version dependency is the same as set in `.python-version`.
 
 If you somehow need to change the command the dash app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
 
@@ -124,6 +124,22 @@ If you omit the `--plaintext` option, you can type in the password interactively
 
 Feel free to adapt the set credentials to your needs. Remember to update the username and password hash in the `Caddyfile` after you generated new credentials.
 
+### Development
+
+You can develop everything local
+
+* Create the internal and external docker networks
+    ```
+    docker network create web
+    docker network create --internal local
+    ```
+* Spin everything up using (in the repository root, not inside the service template directory!)
+    ```
+    docker-compose up --build
+    ```
+* If you make changes repeat the last step.
+* Visit your page under [https://localhost](https://localhost) (You have override the browser warnings, see "Reverse Proxy and TLS").
+
 ### Deployment
 
 In order to deploy your service, you need to login into your server using SSH.
@@ -139,8 +155,9 @@ In order to deploy your service, you need to login into your server using SSH.
     docker-compose up --build
     ```
 * If you make changes, update the repository on the server and repeat the last step.
-* Use `docker-compose start/stop` to start and stop your service and `docker-copose down` to stop it and remove all containers
+* Use `docker-compose start/stop` to start and stop your service and `docker-compose down` to stop it and remove all containers
 * If you are satisfied, you can run everything as a daemon with
     ```
     docker-compose up --detach
     ```
+* Visit your page under the designated URL

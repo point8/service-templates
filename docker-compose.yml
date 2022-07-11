@@ -25,6 +25,14 @@ services:  # remove all unused services
       - 8050
     networks:
       - local
+  fastapi:
+    build:
+      context: ./fastapi
+    restart: unless-stopped
+    expose:
+      - 8080
+    networks:
+      - local
   caddy:
     image: caddy:latest
     restart: unless-stopped
@@ -40,6 +48,7 @@ services:  # remove all unused services
       - streamlit
       - voila
       - dash
+      - fastapi
 
 networks:
   web:
