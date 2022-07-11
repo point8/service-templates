@@ -2,7 +2,7 @@
 
 ## Run your own TLS secured streamlit service with docker
 
-Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedocs.io/en/stable/index.html) or [dash](https://dash.plotly.com/) app as a cloud service with a simple password authentication and secured by HTTPS.
+Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedocs.io/en/stable/index.html), [dash](https://dash.plotly.com/) or [FastAPI](https://fastapi.tiangolo.com) app as a cloud service with a simple password authentication and secured by HTTPS.
 
 The repository consists of example apps and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
 
@@ -14,7 +14,7 @@ At the moment
 - streamlit
 - voila
 - dash
-- fastAPI
+- FastAPI
 templates are included. Feel free to add another one by opening a MR.
 
 ### Server and Domain
@@ -88,6 +88,18 @@ If you somehow need to change the command the dash app is run, you need to adapt
 ```
 CMD ["poetry", "run", "gunicorn", "example:server", "-b", ":8050"]
 ```
+
+### FastAPI
+
+Everything is located in the `fastapi/` directory. Feel free to add your own code. A basic app can be found in `fastapi/example.py`.
+
+If you somehow need to change the command the FastAPI app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
+
+```
+CMD ["poetry", "run", "uvicorn", "example:app", "--host", "0.0.0.0", "--port", "8080"]
+```
+
+To visit the API documentation append `/docs` to the URL., e.g. [https://localhost/docs](https://localhost/docs).
 
 ### Reverse Proxy and TLS
 
