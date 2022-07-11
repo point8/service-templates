@@ -4,6 +4,7 @@
 localhost {  # replace localhost by your domain name `your_subdomain.point8.cloud` if run on a public server
     reverse_proxy streamlit:8501  # replace by correct reverse_proxy depending on the service you want to run
     # reverse_proxy voila:8866
+    # reverse_proxy dash:8050
 
     basicauth {
         guest JDJhJDE0JGFtQmtydjlLajExWVhZcHVSTUN2R09JZDZ2ei5WQWhQejRCOHFVRlJNT25YYXU0Y2VtNTZX

@@ -17,6 +17,14 @@ services:  # remove all unused services
       - 8866
     networks:
       - local
+  dash:
+    build:
+      context: ./dash
+    restart: unless-stopped
+    expose:
+      - 8050
+    networks:
+      - local
   caddy:
     image: caddy:latest
     restart: unless-stopped
@@ -31,6 +39,7 @@ services:  # remove all unused services
     depends_on:  # remove all unused dependencies
       - streamlit
       - voila
+      - dash
 
 networks:
   web:
