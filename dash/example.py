@@ -1,3 +1,9 @@
+# Credit and Disclaimer:
+# This example was copied from https://dash.plotly.com/layout and only minimally modified.
+# 2022-07-13
+#
+# Copyright (c) 2021 Plotly, Inc
+
 from dash import Dash, html, dcc
 import plotly.express as px
 import pandas as pd
