@@ -1,6 +1,6 @@
 # Service Templates
 
-## Run your own TLS secured streamlit service with docker
+## Run your own TLS secured data (visualization) service with docker
 
 Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedocs.io/en/stable/index.html), [dash](https://dash.plotly.com/) or [FastAPI](https://fastapi.tiangolo.com) app as a cloud service with a simple password authentication and secured by HTTPS.
 
