@@ -178,3 +178,12 @@ In order to deploy your service, you need to login into your server using SSH.
     docker-compose up --detach
     ```
 * Visit your page under the designated URL
+
+## Smart Erosion
+
+Point 8 is a partner in the research project SmartErosion. This tool was created as part of the research project. The project is supported by funds from the __European Regional Development Fund (ERDF) 2014-2020 "Investment for Growth and Jobs"__. 
+
+<p float="left">
+  <img src="Ziel2NRW_RGB_1809_jpg.jpg" width="48%" />
+  <img src="EFRE_Foerderhinweis_englisch_farbig.jpg" width="48%" />
+</p>
