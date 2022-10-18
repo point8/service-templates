@@ -179,6 +179,23 @@ In order to deploy your service, you need to login into your server using SSH.
     ```
 * Visit your page under the designated URL
 
+## Launch multiple applications at subdomains
+It is possible to launch multiple apps and make them acsessible at subdomains. For better readability example names beginning with `my_` are used. These can be replaced by custom names.
+1. Duplicate the service directory (streamlit/, fastapi/, ...) and rename it `my_new_service_directiory`. Add the content of your application as described in the service section above.
+2. Inside `docker-compose.yml` create another service:
+    - Duplicate the section of the chosen service and rename it e.g. `streamlit` -> `my_new_service`.
+    - Change the line `contex: ./XXX` to the directory created (`context: ./my_new_service_directiory`) in step 1.
+3. Add the following lines to the `Caddyfile` after the reverse_proxy ... statement:
+    ```
+    handle_path /your_custom_subdomain/* {
+        reverse_proxy my_new_service:XXXX 
+    }
+    ```
+4. Deploy the service as described above. The new service is now reachable under `your_subdomain.point8.cloud/your_custom_subdomain` as definde in the Caddyfile.
+
+Currently this setup is only tested with streamlit app, but should work with the other services too.
+
+
 ## Smart Erosion
 
 Point 8 is a partner in the research project SmartErosion. This tool was created as part of the research project. The project is supported by funds from the __European Regional Development Fund (ERDF) 2014-2020 "Investment for Growth and Jobs"__. 
