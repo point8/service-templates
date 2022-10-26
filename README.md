@@ -10,6 +10,8 @@ Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedo
 
 The repository consists of example apps and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
 
+The service gets automatically deployed using [`ansible`](https://docs.ansible.com/ansible/latest/index.html) from inside the GitLab CI.
+
 ## How to start?
 
 Fork the repo and then go through the following parts one by one. Please read through the whole README once before touching anything.
@@ -38,7 +40,7 @@ In the meantime you can continue with the next steps:
 You will connect to your new server using SSH. You can already add an entry to your `~/.ssh/config`:
 
 ```
-Host your_subdomain.point8.cloud
+Host *.point8.cloud
     Hostname your_subdomain.point8.cloud
     User your_username
     Port 22122
@@ -84,7 +86,7 @@ CMD ["poetry", "run", "voila", "--no-browser", "--Voila.ip='0.0.0.0'", "--port=8
 
 If you remove the last part (`"example.ipynb"`), the user gets a list of all available notebooks.
 
-### Dash
+#### Dash
 
 Everything is located in the `dash/` directory. Feel free to add your own code. A basic app can be found in `dash/example.py`.
 
@@ -94,7 +96,7 @@ If you somehow need to change the command the dash app is run, you need to adapt
 CMD ["poetry", "run", "gunicorn", "example:server", "-b", ":8050"]
 ```
 
-### FastAPI
+#### FastAPI
 
 Everything is located in the `fastapi/` directory. Feel free to add your own code. A basic app can be found in `fastapi/example.py`.
 
@@ -112,8 +114,7 @@ To visit the API documentation append `/docs` to the URL., e.g. [https://localho
 
 Everything is configured in the `Caddyfile`.
 
-* If you want to test everything locally, you can leave the `Caddyfile` as is, if you deploy it to a server you need to
-* change the domain name in line 4 from `localhost` to `your_subdomain.point8.cloud`.
+* If you want to test locally, replace the URL (`service-templates.point8.cloud`) in line 4 in the `Caddyfile` with `localhost`.
 
 As long as you test it locally you have to accept/override your browser warnings caused by an "insecure" TLS connection due to an untrusted self-signed certificate.
 
@@ -178,6 +179,16 @@ In order to deploy your service, you need to login into your server using SSH.
     docker-compose up --detach
     ```
 * Visit your page under the designated URL
+
+#### Automatic deployment using your projects CI pipeline
+
+If you already have a server, than you can easily setup your project to be automatically deployed.
+
+1. Ask Christophe or Vitorio to add the server SSH key to your projects CI variables.
+2. Change the `TARGET_HOST` variable in the `.gitlab-ci.yml` file to your own `<subdomain>.point8.cloud` URL.
+3. Done
+
+All changes to the `main` branch are now deployed without further actions necessary.
 
 ## Launch multiple applications at subdomains
 It is possible to launch multiple apps and make them accessible at a self defined path. For better readability example names beginning with `my_` are used. These can be replaced by custom names.
