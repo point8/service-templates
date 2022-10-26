@@ -1,0 +1,28 @@
+stages:
+  - deploy
+
+variables:
+  REGISTRY: "registry.point-8.de"
+  CI_IMAGE: "$REGISTRY/docker/images/ubuntu-20.04-ci-shared-runner"
+  TARGET_HOST: service-templates.point8.cloud
+
+image: $CI_IMAGE
+
+deploy_to_production:
+  stage: deploy
+  image: "$REGISTRY/docker/images/ubuntu-20.04-ansible"
+  before_script:
+    - mkdir -p ~/.ssh
+    - touch ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - ssh-keyscan -p 22122 $TARGET_HOST | sort -u - ~/.ssh/known_hosts -o ~/.ssh/known_hosts
+    - eval $(ssh-agent -s)
+    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add -
+  script:
+    - echo "Deploying to production"
+    # This makes the clone faster bc there is less things to download
+    - git clone --depth 1 -b main --single-branch https://gitlab-ci-token:${CI_JOB_TOKEN}@git.point-8.de/it/tachyon.git
+    - cd tachyon
+    - echo -e "[docker_compose_deployment]\n$TARGET_HOST" > inventory
+    - ansible-galaxy collection install community.docker
+    - ansible-playbook --ssh-extra-args "-p 22122 -l tachyon" -i inventory --limit $TARGET_HOST playbooks/docker-compose-deployment.yml --extra-vars "ci_repository_url=$CI_REPOSITORY_URL"
