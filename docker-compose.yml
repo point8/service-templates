@@ -40,7 +40,7 @@ services:  # remove all unused services
       - 80:80
       - 443:443
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
     networks:
       - local
       - web
