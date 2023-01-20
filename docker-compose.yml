@@ -41,6 +41,7 @@ services:  # remove all unused services
       - 443:443
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
     networks:
       - local
       - web
@@ -56,3 +57,6 @@ networks:
   local:
     external: false
     driver: bridge
+
+volumes:
+  caddy-data:
