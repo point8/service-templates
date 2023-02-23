@@ -42,6 +42,7 @@ services:  # remove all unused services
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
+      - caddy-config:/config
     networks:
       - local
       - web
@@ -60,3 +61,4 @@ networks:
 
 volumes:
   caddy-data:
+  caddy-config:
