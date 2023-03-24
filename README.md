@@ -10,6 +10,8 @@ Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedo
 
 The repository consists of example apps and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
 
+Additionally NoSQL and SQL database services are available and a Redis service is configured to if one is needed.
+
 The service gets automatically deployed using [`ansible`](https://docs.ansible.com/ansible/latest/index.html) from inside the GitLab CI.
 
 ## How to start?
@@ -53,16 +55,18 @@ Host *.point8.cloud
 
 Python is handeled by [`pyenv`](). The version is fixed in the `.python-version` file by calling `pyenv local X.Y.Z`.
 
-### Service
+### Services
 
 There are different service templates available. See below.
 
 After you decided what kind of service you want to use, you have to adapt your file in two places:
 
-1. Remove all unused services from the `docker-compose.yml` and also remove the dependencies (`depends_on:`) under the `caddy:` service config.
+1. Remove all unused services from the `compose.yaml` and also remove all unused dependencies (`depends_on:`, `volumes:`)
 2. Pick the correct `reverse_proxy` in the `Caddyfile`
 
 Make sure to update your dependencies and keep the `pyproject.toml` and the `poetry.lock` files up to date. Also make sure, that the Python version dependency is the same as set in `.python-version`.
+
+Also check if you need or want to pin the image tags of the services to a specific version.
 
 #### Streamlit
 
@@ -107,6 +111,32 @@ CMD ["poetry", "run", "uvicorn", "example:app", "--host", "0.0.0.0", "--port", "
 ```
 
 To visit the API documentation append `/docs` to the URL., e.g. [https://localhost/docs](https://localhost/docs).
+
+### Auxiliary services
+
+#### PostgreSQL
+
+An instance of [PostgreSQL](https://www.postgresql.org/) is available. Please check the preconfigured environment variables under `environment:` if they need to be adapted.
+
+It uses the standard port `5432` and can be accessed internally by all other services e.g. via string `postgresql://<username>:<password>@postgres:5432`
+
+For further documentation please see the [official documentation](https://hub.docker.com/_/postgres) of the docker image.
+
+#### MongoDB
+
+An instance of [MongoDB](https://www.mongodb.com/) is available. Please check the preconfigured environment variables under `environment:` if they need to be adapted.
+
+It uses the standard port `27017` and can be accessed internally by all other services e.g. via string `mongodb://<username>:<password>@mongodb:27017`
+
+For further documentation please see the [official documentation](https://hub.docker.com/_/mongo) of the docker image.
+
+#### Redis
+
+An instance of [Redis](https://redis.io/) is available. Please check the preconfigured environment variables under `environment:` if they need to be adapted.
+
+It uses the standard port `6379` and can be accessed internally by all other services e.g. via string `redis://redis:6379/0`
+
+For further documentation please see the [official documentation](https://hub.docker.com/_/redis) of the docker image.
 
 ### Reverse Proxy and TLS
 
@@ -193,7 +223,7 @@ All changes to the `main` branch are now deployed without further actions necess
 ## Launch multiple applications at subdomains
 It is possible to launch multiple apps and make them accessible at a self defined path. For better readability example names beginning with `my_` are used. These can be replaced by custom names.
 1. Duplicate the service directory (streamlit/, fastapi/, ...) and rename it to `my_new_service_directiory`. Add the content of your additional application as described in the service section above.
-2. Inside `docker-compose.yml` create another service:
+2. Inside `compose.yaml` create another service:
     - Duplicate the section of the chosen service and rename it e.g. `streamlit` -> `my_new_service`.
     - Change the line `context: ./XXX` to the directory created in step 1 (`context: ./my_new_service_directiory`).
 3. Add the following lines to the `Caddyfile` after the `reverse_proxy` statement:
@@ -209,7 +239,7 @@ Currently this setup is only tested with streamlit applications, but should work
 
 ## Smart Erosion
 
-Point 8 is a partner in the research project SmartErosion. This tool was created as part of the research project. The project is supported by funds from the __European Regional Development Fund (ERDF) 2014-2020 "Investment for Growth and Jobs"__. 
+Point 8 is a partner in the research project SmartErosion. This tool was created as part of the research project. The project was supported by funds from the __European Regional Development Fund (ERDF) 2014-2020 "Investment for Growth and Jobs"__.
 
 <p float="left">
   <img src="Ziel2NRW_RGB_1809_jpg.jpg" width="48%" />
