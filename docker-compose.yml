@@ -1,6 +1,8 @@
-version: "3.9"
-
-services:  # remove all unused services
+# Setup steps:
+# 1. Remove all unused services
+# 2. Remove all unused depends_on: list entries
+# 3. Remove all unused volumes from the volumes: list
+services:
   streamlit:
     build:
       context: ./streamlit
@@ -9,6 +11,10 @@ services:  # remove all unused services
       - 8501
     networks:
       - local
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
   voila:
     build:
       context: ./voila
@@ -17,6 +23,10 @@ services:  # remove all unused services
       - 8866
     networks:
       - local
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
   dash:
     build:
       context: ./dash
@@ -25,12 +35,51 @@ services:  # remove all unused services
       - 8050
     networks:
       - local
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
   fastapi:
     build:
       context: ./fastapi
     restart: unless-stopped
     expose:
       - 8080
+    networks:
+      - local
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_PASSWORD=pf9K6bCTkz2rgCzgN2AsWLRuK8
+      - POSTGRES_DB=example
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - local
+  mongodb:
+    image: mongo:db
+    volumes:
+      - mongodb-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongodb
+      - MONGO_INITDB_ROOT_PASSWORD=n2mYJ9BhU2AaVnrNZVzNJt4hsC
+      - MONGO_INITDB_DATABASE=example
+    networks:
+      - local
+  redis:
+    image: redis:latest
+    restart: unless-stopped
+    expose:
+     - 6379
+    volumes:
+      - redis-data:/data
     networks:
       - local
   caddy:
@@ -46,7 +95,7 @@ services:  # remove all unused services
     networks:
       - local
       - web
-    depends_on:  # remove all unused dependencies
+    depends_on:
       - streamlit
       - voila
       - dash
@@ -60,5 +109,8 @@ networks:
     driver: bridge
 
 volumes:
+  postgres-data:
+  mongodb-data:
+  redis-data:
   caddy-data:
   caddy-config:
