@@ -17,7 +17,6 @@ deploy_to_production:
     - chmod 644 ~/.ssh/known_hosts
     - ssh-keyscan -p 22122 $TARGET_HOST | sort -u - ~/.ssh/known_hosts -o ~/.ssh/known_hosts
     - eval $(ssh-agent -s)
-    - echo "${SSH_PRIVATE_KEY}"
     - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add -
   script:
     - echo "Deploying to production"
@@ -27,3 +26,5 @@ deploy_to_production:
     - echo -e "[docker_compose_deployment]\n$TARGET_HOST" > inventory
     - ansible-galaxy collection install community.docker
     - ansible-playbook --ssh-extra-args "-p 22122 -l tachyon" -i inventory --limit $TARGET_HOST playbooks/docker-compose-deployment.yml --extra-vars "ci_repository_url=$CI_REPOSITORY_URL"
+  only:
+    - main
