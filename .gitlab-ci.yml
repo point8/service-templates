@@ -28,3 +28,19 @@ deploy_to_production:
     - ansible-playbook --ssh-extra-args "-p 22122 -l tachyon" -i inventory --limit $TARGET_HOST playbooks/docker-compose-deployment.yml --extra-vars "ci_repository_url=$CI_REPOSITORY_URL"
   only:
     - main
+
+pages:
+  stage: public
+  image: $CI_IMAGE
+  before_script:
+    - cd docs
+    - poetry install
+    - poetry run mkdocs --version
+  script:
+    - poetry run mkdocs build --site-dir ../public/
+  artifacts:
+    paths:
+      - public/
+  only:
+    refs:
+      - main
