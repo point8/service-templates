@@ -27,7 +27,7 @@ Feel free to add more by opening a MR.
 
 After you decided what kind of service you want to use, you have to adapt your file in two places:
 
-1. Remove all unused services from the `compose.yaml` and also remove all unused dependencies (`depends_on:`, `volumes:`)
+1. Update the `compose.yaml` and also review all dependencies (`depends_on:`, `volumes:`)
 2. Pick the correct `reverse_proxy` in the `Caddyfile`
 
 Make sure to update your dependencies and keep the `pyproject.toml` and the `poetry.lock` files up to date. Also make sure, that the Python version dependency is the same as set in `.python-version`.
