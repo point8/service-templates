@@ -27,31 +27,6 @@ At the moment
 
 templates are included. Feel free to add another one by opening a MR.
 
-### Server and Domain
-
-* Open a [new Issue](https://git.point-8.de/it/tachyon/-/issues/new) and request the `<subdomain>.point8.cloud` you need and 
-* if you have any requirements on the computational part (If not, you get a [CPX11](https://www.hetzner.com/de/cloud)).
-* Also please specify how long the service will be needed.
-* Who else besides you, needs administration access to the server?
-* Assign the Issue to Christophe or Vitorio ([Runbook](https://git.point-8.de/it/tachyon/-/blob/main/runbooks/service-templates.md)). Then wait for instructions. 
-
-In the meantime you can continue with the next steps:
-
-
-### SSH
-
-You will connect to your new server using SSH. You can already add an entry to your `~/.ssh/config`:
-
-```
-Host *.point8.cloud
-    Hostname your_subdomain.point8.cloud
-    User your_username
-    Port 22122
-    IdentityFile ~/.ssh/your_point8_ssh_key
-    ForwardX11 yes
-    ForwardAgent yes
-```
-
 ### Python
 
 Python is handeled by [`pyenv`](). The version is fixed in the `.python-version` file by calling `pyenv local X.Y.Z`.
@@ -188,38 +163,6 @@ You can develop everything local
     ```
 * If you make changes repeat the last step.
 * Visit your page under [https://localhost](https://localhost) (You have override the browser warnings, see "Reverse Proxy and TLS").
-
-### Deployment
-
-In order to deploy your service, you need to login into your server using SSH.
-
-* Clone your repository
-* Create the internal and external docker networks
-    ```
-    docker network create web
-    docker network create --internal local
-    ```
-* Spin everything up using
-    ```
-    docker-compose up --build
-    ```
-* If you make changes, update the repository on the server and repeat the last step.
-* Use `docker-compose start/stop` to start and stop your service and `docker-compose down` to stop it and remove all containers
-* If you are satisfied, you can run everything as a daemon with
-    ```
-    docker-compose up --detach
-    ```
-* Visit your page under the designated URL
-
-#### Automatic deployment using your projects CI pipeline
-
-If you already have a server, than you can easily setup your project to be automatically deployed.
-
-1. Ask Christophe or Vitorio to add the server SSH key to your projects CI variables.
-2. Change the `TARGET_HOST` variable in the `.gitlab-ci.yml` file to your own `<subdomain>.point8.cloud` URL.
-3. Done
-
-All changes to the `main` branch are now deployed without further actions necessary.
 
 ## Launch multiple applications at subdomains
 It is possible to launch multiple apps and make them accessible at a self defined path. For better readability example names beginning with `my_` are used. These can be replaced by custom names.
