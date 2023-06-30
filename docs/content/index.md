@@ -152,11 +152,6 @@ Feel free to adapt the set credentials to your needs. Remember to update the use
 
 You can develop everything local
 
-* Create the internal and external docker networks
-    ```
-    docker network create web
-    docker network create --internal local
-    ```
 * Spin everything up using (in the repository root, not inside the service template directory!)
     ```
     docker-compose up --build

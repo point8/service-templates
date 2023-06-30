@@ -103,7 +103,7 @@ services:
 
 networks:
   web:
-    external: true
+    external: false
   local:
     external: false
     driver: bridge
