@@ -30,7 +30,7 @@ deploy_to_production:
     - main
 
 pages:
-  stage: public
+  stage: deploy
   image: $CI_IMAGE
   before_script:
     - cd docs
