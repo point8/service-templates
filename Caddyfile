@@ -2,10 +2,7 @@
     email admin@point-8.de
 }
 service-templates.point8.cloud {  # replace by `localhost` to develop locally
-    reverse_proxy fastapi:8080  # pick one
-    # reverse_proxy streamlit:8501
-    # reverse_proxy voila:8866
-    # reverse_proxy dash:8050
+    reverse_proxy fastapi:8080
 
     basicauth {
         guest JDJhJDE0JGFtQmtydjlLajExWVhZcHVSTUN2R09JZDZ2ei5WQWhQejRCOHFVRlJNT25YYXU0Y2VtNTZX

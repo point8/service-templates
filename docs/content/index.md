@@ -44,50 +44,6 @@ Make sure to update your dependencies and keep the `pyproject.toml` and the `poe
 
 Also check if you need or want to pin the image tags of the services to a specific version.
 
-#### Streamlit
-
-Everything is located in the `streamlit/` directory. Feel free to add your own code. A basic app can be found in `streamlit/app.py`.
-
-If you somehow need to change the command the streamlit app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
-
-```
-CMD ["poetry", "run", "streamlit", "run", "app.py"]
-```
-
-#### Voilà
-
-Everything is located in the `voila/` directory. Feel free to add your own code. A basic app can be found in `voila/example.ipynb`.
-
-If you somehow need to change the command the voila app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
-
-```
-CMD ["poetry", "run", "voila", "--no-browser", "--Voila.ip='0.0.0.0'", "--port=8866", "example.ipynb"]
-```
-
-If you remove the last part (`"example.ipynb"`), the user gets a list of all available notebooks.
-
-#### Dash
-
-Everything is located in the `dash/` directory. Feel free to add your own code. A basic app can be found in `dash/example.py`.
-
-If you somehow need to change the command the dash app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
-
-```
-CMD ["poetry", "run", "gunicorn", "example:server", "-b", ":8050"]
-```
-
-#### FastAPI
-
-Everything is located in the `fastapi/` directory. Feel free to add your own code. A basic app can be found in `fastapi/example.py`.
-
-If you somehow need to change the command the FastAPI app is run, you need to adapt the last line in the `Dockerfile` to reflect those changes:
-
-```
-CMD ["poetry", "run", "uvicorn", "example:app", "--host", "0.0.0.0", "--port", "8080"]
-```
-
-To visit the API documentation append `/docs` to the URL., e.g. [https://localhost/docs](https://localhost/docs).
-
 ### Auxiliary services
 
 #### PostgreSQL
