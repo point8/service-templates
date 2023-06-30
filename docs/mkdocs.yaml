@@ -1,4 +1,4 @@
-site_name: service-templates
+site_name: Service Templates
 docs_dir: content
 site_dir: build
 repo_url: https://git.point-8.de/ccauet/service-templates

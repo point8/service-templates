@@ -1,4 +1,4 @@
-# Service Templates
+# How to start?
 
 ![logo.png](i/logo.png)
 
