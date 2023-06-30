@@ -1,7 +1,7 @@
 {
     email admin@point-8.de
 }
-service-templates.point8.cloud {  # replace by `localhost` to develop locally
+service-templates.point8.cloud {
     reverse_proxy fastapi:8080
 
     basicauth {
