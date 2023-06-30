@@ -1,4 +1,4 @@
-# How to start?
+# Welcome
 
 ![logo.png](i/logo.png)
 
@@ -14,7 +14,9 @@ Additionally NoSQL and SQL database services are available and a Redis service i
 
 The service gets automatically deployed using [`ansible`](https://docs.ansible.com/ansible/latest/index.html) from inside the GitLab CI.
 
-### Services
+### How to start?
+
+Fork the repo and then go through the following parts one by one. Please read through the whole documentation once before touching anything.
 
 There are different service templates available:
 
@@ -34,10 +36,6 @@ Make sure to update your dependencies and keep the `pyproject.toml` and the `poe
 
 Also check if you need or want to pin the image tags of the services to a specific version.
 
-### Python
-
-Python is handeled by [`pyenv`](). The version is fixed in the `.python-version` file by calling `pyenv local X.Y.Z`.
-
 ### Development
 
 You can develop everything local
@@ -48,3 +46,7 @@ You can develop everything local
     ```
 * If you make changes repeat the last step.
 * Visit your page under [https://localhost](https://localhost) (You have override the browser warnings, see "Reverse Proxy and TLS").
+
+#### Python
+
+Python is handeled by [`pyenv`](). The version is fixed in the `.python-version` file by calling `pyenv local X.Y.Z`.
