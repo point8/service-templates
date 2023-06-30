@@ -1,6 +1,6 @@
 # Service Templates
 
-![../logo.png](logo.png)
+![logo.png](../logo.png)
 
 _(Public mirror: https://github.com/point8/service-templates)_
 
