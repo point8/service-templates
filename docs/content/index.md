@@ -1,6 +1,6 @@
 # Service Templates
 
-![logo.png](../logo.png)
+![logo.png](i/logo.png)
 
 _(Public mirror: https://github.com/point8/service-templates)_
 
@@ -19,6 +19,7 @@ The service gets automatically deployed using [`ansible`](https://docs.ansible.c
 Fork the repo and then go through the following parts one by one. Please read through the whole README once before touching anything.
 
 At the moment
+
 - streamlit
 - voila
 - dash
@@ -235,13 +236,3 @@ It is possible to launch multiple apps and make them accessible at a self define
 4. Deploy the service as described above. The new service is now reachable under `your_subdomain.point8.cloud/your_custom_path` as definde in the `Caddyfile`.
 
 Currently this setup is only tested with streamlit applications, but should work with the other services too.
-
-
-## Smart Erosion
-
-Point 8 is a partner in the research project SmartErosion. This tool was created as part of the research project. The project was supported by funds from the __European Regional Development Fund (ERDF) 2014-2020 "Investment for Growth and Jobs"__.
-
-<p float="left">
-  <img src="Ziel2NRW_RGB_1809_jpg.jpg" width="48%" />
-  <img src="EFRE_Foerderhinweis_englisch_farbig.jpg" width="48%" />
-</p>

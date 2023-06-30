@@ -16,7 +16,10 @@ The service gets automatically deployed using [`ansible`](https://docs.ansible.c
 
 ## Documentation
 
-Either have a look into our internal [documentation](https://ccauet.point8.work/service-templates) or build the documention yourself: `pushd docs && poetry run mkdocs build && open build/index.html && popd`
+Either have a look into our internal [documentation](https://ccauet.point8.work/service-templates) or build the documention yourself:
+```
+pushd docs && poetry run mkdocs build && open build/index.html && popd
+```
 
 ## How to start?
 
