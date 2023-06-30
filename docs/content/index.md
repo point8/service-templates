@@ -10,30 +10,20 @@ Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedo
 
 The repository consists of example apps and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
 
-Additionally NoSQL and SQL database services are available and a Redis service is configured to if one is needed.
+Additionally NoSQL and SQL database services are available and a Redis service is configured to if one is needed. See the [Auxiliary services](auxiliary-services.md) page.
 
 The service gets automatically deployed using [`ansible`](https://docs.ansible.com/ansible/latest/index.html) from inside the GitLab CI.
 
-## How to start?
-
-Fork the repo and then go through the following parts one by one. Please read through the whole README once before touching anything.
-
-At the moment
-
-- streamlit
-- voila
-- dash
-- FastAPI
-
-templates are included. Feel free to add another one by opening a MR.
-
-### Python
-
-Python is handeled by [`pyenv`](). The version is fixed in the `.python-version` file by calling `pyenv local X.Y.Z`.
-
 ### Services
 
-There are different service templates available. See below.
+There are different service templates available:
+
+- [streamlit](services/streamlit.md)
+- [FastAPI](services/fastapi.md)
+- [voila](services/voila.md)
+- [dash](services/dash.md)
+
+Feel free to add more by opening a MR.
 
 After you decided what kind of service you want to use, you have to adapt your file in two places:
 
@@ -44,65 +34,9 @@ Make sure to update your dependencies and keep the `pyproject.toml` and the `poe
 
 Also check if you need or want to pin the image tags of the services to a specific version.
 
-### Auxiliary services
+### Python
 
-#### PostgreSQL
-
-An instance of [PostgreSQL](https://www.postgresql.org/) is available. Please check the preconfigured environment variables under `environment:` if they need to be adapted.
-
-It uses the standard port `5432` and can be accessed internally by all other services e.g. via string `postgresql://<username>:<password>@postgres:5432`
-
-For further documentation please see the [official documentation](https://hub.docker.com/_/postgres) of the docker image.
-
-#### MongoDB
-
-An instance of [MongoDB](https://www.mongodb.com/) is available. Please check the preconfigured environment variables under `environment:` if they need to be adapted.
-
-It uses the standard port `27017` and can be accessed internally by all other services e.g. via string `mongodb://<username>:<password>@mongodb:27017`
-
-For further documentation please see the [official documentation](https://hub.docker.com/_/mongo) of the docker image.
-
-#### Redis
-
-An instance of [Redis](https://redis.io/) is available. Please check the preconfigured environment variables under `environment:` if they need to be adapted.
-
-It uses the standard port `6379` and can be accessed internally by all other services e.g. via string `redis://redis:6379/0`
-
-For further documentation please see the [official documentation](https://hub.docker.com/_/redis) of the docker image.
-
-### Reverse Proxy and TLS
-
-[Caddy](https://caddyserver.com/) is used to act as a reverse proxy, handle TLS certificates, and forward the user from the standard HTTP(s) ports to your hidden service in the background.
-
-Everything is configured in the `Caddyfile`.
-
-* If you want to test locally, replace the URL (`service-templates.point8.cloud`) in line 4 in the `Caddyfile` with `localhost`.
-
-As long as you test it locally you have to accept/override your browser warnings caused by an "insecure" TLS connection due to an untrusted self-signed certificate.
-
-#### Change basic authentication
-
-The authentication to the service is done using HTTP basic auth.
-
-The default credentials are `guest:geheim`
-
-The following section in the `Caddyfile` is responsible for setting it.
-
-```
-basicauth {
-    guest JDJhJDE0JEhDc0lEcGRraS94SFZ1TzlEUjl5Wi5WM3hOa0xWSlVQYzBOS0xJMmwzczN4Qk9zbnlUU29p
-}
-```
-
-To create a new password use e.g.
-
-```
-docker run -it caddy:latest caddy hash-password --plaintext "1-super-secret-pa$$word"
-```
-
-If you omit the `--plaintext` option, you can type in the password interactively.
-
-Feel free to adapt the set credentials to your needs. Remember to update the username and password hash in the `Caddyfile` after you generated new credentials.
+Python is handeled by [`pyenv`](). The version is fixed in the `.python-version` file by calling `pyenv local X.Y.Z`.
 
 ### Development
 
@@ -114,19 +48,3 @@ You can develop everything local
     ```
 * If you make changes repeat the last step.
 * Visit your page under [https://localhost](https://localhost) (You have override the browser warnings, see "Reverse Proxy and TLS").
-
-## Launch multiple applications at subdomains
-It is possible to launch multiple apps and make them accessible at a self defined path. For better readability example names beginning with `my_` are used. These can be replaced by custom names.
-1. Duplicate the service directory (streamlit/, fastapi/, ...) and rename it to `my_new_service_directiory`. Add the content of your additional application as described in the service section above.
-2. Inside `compose.yaml` create another service:
-    - Duplicate the section of the chosen service and rename it e.g. `streamlit` -> `my_new_service`.
-    - Change the line `context: ./XXX` to the directory created in step 1 (`context: ./my_new_service_directiory`).
-3. Add the following lines to the `Caddyfile` after the `reverse_proxy` statement:
-    ```
-    handle_path /your_custom_path/* {
-        reverse_proxy my_new_service:XXXX 
-    }
-    ```
-4. Deploy the service as described above. The new service is now reachable under `your_subdomain.point8.cloud/your_custom_path` as definde in the `Caddyfile`.
-
-Currently this setup is only tested with streamlit applications, but should work with the other services too.
