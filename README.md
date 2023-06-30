@@ -14,6 +14,10 @@ Additionally NoSQL and SQL database services are available and a Redis service i
 
 The service gets automatically deployed using [`ansible`](https://docs.ansible.com/ansible/latest/index.html) from inside the GitLab CI.
 
+## Documentation
+
+Either have a look into our internal [documentation](https://ccauet.point8.work/service-templates) or build the documention yourself: `pushd docs && poetry run mkdocs build && open build/index.html && popd`
+
 ## How to start?
 
 Fork the repo and then go through the following parts one by one. Please read through the whole README once before touching anything.
