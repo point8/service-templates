@@ -7,9 +7,6 @@ theme:
   name: material
   features:
     - instant
-  icon:
-    logo: fontawesome/solid/book-reader
-    repo: fontawesome/brands/gitlab
   palette:
     primary: blue
     accent: orange

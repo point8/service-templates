@@ -5,7 +5,6 @@ description = ""
 authors = ["Christophe Cauet <ccauet@point-8.de>"]
 license = "Creative Commons BY-NC-SA 4.0"
 readme = "README.md"
-packages = [{include = "documentation for service_templates repository"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
