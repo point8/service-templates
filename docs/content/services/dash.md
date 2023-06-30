@@ -1,5 +1,7 @@
 # Dash
 
+Website: [dash.plotly.com/](https://dash.plotly.com/)
+
 Everything is located in the `dash/` directory. Feel free to add your own code. A basic app can be found in `dash/example.py`.
 
 ## Dockerfile
