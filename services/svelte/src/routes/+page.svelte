@@ -13,7 +13,7 @@
 	}
 </script>
 
-<button on:click|once={handleClick}> Click me </button>
+<button on:click={handleClick}> Click me </button>
 
 {@debug item}
 
