@@ -1,7 +1,7 @@
 services:
   streamlit:
     build:
-      context: ./streamlit
+      context: services/streamlit
     restart: unless-stopped
     expose:
       - 8501
@@ -57,9 +57,6 @@ services:
       - web
     depends_on:
       - streamlit
-      - voila
-      - dash
-      - fastapi
 
 networks:
   web:

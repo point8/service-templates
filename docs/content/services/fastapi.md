@@ -21,7 +21,7 @@ Add the following configuration block as a service to the `compose.yaml` file:
 ```yaml
 fastapi:
   build:
-    context: ./fastapi
+    context: services/fastapi
   restart: unless-stopped
   expose:
     - 8080

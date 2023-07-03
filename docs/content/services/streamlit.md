@@ -19,7 +19,7 @@ Add the following configuration block as a service to the `compose.yaml` file:
 ```yaml
 streamlit:
   build:
-    context: ./streamlit
+    context: services/streamlit
   restart: unless-stopped
   expose:
     - 8501

@@ -21,7 +21,7 @@ Add the following configuration block as a service to the `compose.yaml` file:
 ```yaml
 voila:
   build:
-    context: ./voila
+    context: services/voila
   restart: unless-stopped
   expose:
     - 8866
