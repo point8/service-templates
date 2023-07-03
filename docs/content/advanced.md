@@ -12,7 +12,7 @@ Everything is defined in the `.devcontainer` directory. The central part of the 
 
 There are other ways you can work with devcontainer, but here we will use the VSCode extension: [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
 
-Just follow to the instructions to set the extension up and install docker locally.
+Please follow to the instructions to set the extension up and install docker locally.
 
 Then you can open the VSCode Command Palette and type `Dev Containers`, choose `Reopen in Container` and wait for the several docker containers to spin up.
 
