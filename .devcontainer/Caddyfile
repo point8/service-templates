@@ -1,0 +1,8 @@
+localhost {
+  handle_path /api/* {
+    reverse_proxy fastapi:8080
+  }
+  handle {
+    reverse_proxy app:5173
+  }
+}

@@ -1,0 +1,39 @@
+services:
+  app:
+    image: node:18.16.1-bullseye-slim
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    expose:
+      - 5173
+    networks:
+      - devcontainer
+
+  fastapi:
+    build:
+      context: ../services/fastapi
+    restart: unless-stopped
+    expose:
+      - 8080
+    networks:
+      - devcontainer
+
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
+      - caddy-config:/config
+    networks:
+      - devcontainer
+
+volumes:
+  caddy-data:
+  caddy-config:
+
+networks:
+  devcontainer:

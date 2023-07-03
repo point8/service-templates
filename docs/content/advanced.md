@@ -1,5 +1,35 @@
 # Advanced setups
 
+## Devcontainers
+
+An example [devcontainer](https://containers.dev) setup is provided under `.devcontainer`.
+
+It consists of a backend services, a reverse proxy and a frontend app. The `devcontainer` in this setup can be used to develop the [svelte](https://svelte.dev) frontend, while the [FastAPI](https://fastapi.tiangolo.com) example provides a backend. A [caddy](https://caddyserver.com/) web server acts as reverse proxy to route requests to the right service.
+
+Everything is defined in the `.devcontainer` directory. The central part of the setup is the `devcontainer.json`, there a [docker-compose](https://docs.docker.com/compose/) based environment is defined. The `compose.yaml` describes the different services used, where `app` is the service we will connect to, in order to develop the frontend. A basic `Caddyfile` configures the reverse proxy.
+
+### Using VSCode and the devcontainer extension
+
+There are other ways you can work with devcontainer, but here we will use the VSCode extension: [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+
+Just follow to the instructions to set the extension up and install docker locally.
+
+Then you can open the VSCode Command Palette and type `Dev Containers`, choose `Reopen in Container` and wait for the several docker containers to spin up.
+
+You can use the terminal in VSCode to execute commands inside the devcontainer. As we are using a [nodejs](https://nodejs.org) image, we can start the svelte dev server with
+
+```
+cd services/svelte
+npm install
+npm run dev
+```
+
+Then visit [localhost](https://localhost) in your browser. You need to accept the auto generated TLS certificates to procced!
+
+If you are done, you can use the Command Palette again and run `Reopen in local folder` to exit the devcontainer.
+
+Further [documentation](https://code.visualstudio.com/docs/remote/remote-overview) is available online.
+
 ## Launch multiple applications at subdomains
 
 It is possible to launch multiple apps and make them accessible at a self defined path. For better readability example names beginning with `my_` are used. These can be replaced by custom names.
