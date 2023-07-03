@@ -24,6 +24,7 @@ There are different service templates available:
 - [FastAPI](services/fastapi.md)
 - [voila](services/voila.md)
 - [dash](services/dash.md)
+- [svelte](services/svelte.md)
 
 Feel free to add more by opening a MR.
 
