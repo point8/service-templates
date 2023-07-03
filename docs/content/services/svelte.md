@@ -12,7 +12,7 @@ To change the command running the app, you need to adapt the last line in the `D
 CMD ["build"]
 ```
 
-The entrypoint of this image is set to `node`, so this image expects users to supply a path to e.g. a .`js` file in the `CMD`.
+The entrypoint of this image is set to `node`, so this image expects users to supply a path to e.g. a `.js` file in the `CMD`.
 
 ## docker-compose
 
