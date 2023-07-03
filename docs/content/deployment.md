@@ -3,11 +3,6 @@
 In order to deploy your service, you need to login into your server using SSH.
 
 * Clone your repository
-* Create the internal and external docker networks
-    ```
-    docker network create web
-    docker network create --internal local
-    ```
 * Spin everything up using
     ```
     docker-compose up --build
