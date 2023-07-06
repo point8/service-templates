@@ -8,14 +8,12 @@
 	async function handleClick() {
     clicked = true;
 
-    item = await fetch(`https://localhost/api/random`).then((r) => r.json());
+    item = await fetch(`/api/v1/random`).then((r) => r.json());
     console.log(item)
 	}
 </script>
 
 <button on:click={handleClick}> Click me </button>
-
-{@debug item}
 
 {#if clicked}
 	<p>Connecting to backend...</p>
