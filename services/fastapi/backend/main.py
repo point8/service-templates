@@ -29,7 +29,6 @@ def app_item(item_id: int, q: Union[str, None] = None):
 
 api = VersionedFastAPI(api, version_format="{major}", prefix_format="/v{major}")
 
-app.mount("/static", StaticFiles(directory="pdharcs/static"), name="static")
 app.mount("/api", api)
 
 ORIGINS = [
