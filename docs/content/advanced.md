@@ -4,9 +4,11 @@
 
 An example [devcontainer](https://containers.dev) setup is provided under `.devcontainer`.
 
-It consists of a backend services, a reverse proxy and a frontend app. The `devcontainer` in this setup can be used to develop the [svelte](https://svelte.dev) frontend, while the [FastAPI](https://fastapi.tiangolo.com) example provides a backend. A [caddy](https://caddyserver.com/) web server acts as reverse proxy to route requests to the right service.
+It consists of a backend services, a reverse proxy and a frontend app. The `devcontainer` in this setup can be used to develop the [svelte](https://svelte.dev) frontend, while the [FastAPI](https://fastapi.tiangolo.com) example provides a backend.
 
-Everything is defined in the `.devcontainer` directory. The central part of the setup is the `devcontainer.json`, there a [docker-compose](https://docs.docker.com/compose/) based environment is defined. The `compose.yaml` describes the different services used, where `app` is the service we will connect to, in order to develop the frontend. A basic `Caddyfile` configures the reverse proxy.
+Everything is defined in the `.devcontainer` directory. The central part of the setup is the `devcontainer.json`, there a [docker-compose](https://docs.docker.com/compose/) based environment is defined. The `compose.yaml` describes the different services used, where `frontend` is the service we will connect to, in order to develop the frontend.
+
+The source code of the backend service is also mounted to the backend container, thus allowing the backend server to refresh as the code is updated.
 
 ### Using VSCode and the devcontainer extension
 
@@ -24,7 +26,7 @@ npm install
 npm run dev
 ```
 
-Then visit [localhost](https://localhost) in your browser. You need to accept the auto generated TLS certificates to procced!
+You can then visit the results in your browser, VSCode will provide the tunnel automatically.
 
 If you are done, you can use the Command Palette again and run `Reopen in local folder` to exit the devcontainer.
 
