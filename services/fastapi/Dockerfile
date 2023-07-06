@@ -21,4 +21,4 @@ COPY . ./
 EXPOSE 8080
 
 ENTRYPOINT []
-CMD ["poetry", "run", "uvicorn", "example:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["poetry", "run", "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8080"]
