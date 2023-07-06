@@ -2,7 +2,7 @@
 {
 	"name": "Node.js & FastAPI",
 	"dockerComposeFile": "compose.yaml",
-	"service": "app",
+	"service": "frontend",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"features": {}
 
