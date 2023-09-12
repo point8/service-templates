@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alpine JS app with PocketBase backend">
+
+    <title>Alpine JS app with PocketBase backend</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.18.0/pocketbase.umd.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
+  </head>
+  <body>
+    <div x-data="example">
+      <nav>
+        <ul>
+          <li>
+            <h1 style="margin:0; text-align: center; cursor: pointer">Alpine JS app with PocketBase backend</h1>
+          </li>
+        </ul>
+        <ul>
+          <li><i x-show="!showLogin" @click="logout()" style="cursor: pointer">Logout</i></li>
+        </ul>
+      </nav>
+
+      <!-- login / signup -->
+      <article x-show="showLogin" x-transition>
+        <h2>Login</h2>
+
+        <label for="email">Email</label>
+        <input x-model="email" type="email" id="email" placeholder="Email address">
+
+        <label for="password">Password</label>
+        <input x-model="password" type="password" id="password">
+
+        <button @click="login()">Login</button>
+
+        <mark x-show="loginMessage" x-text="loginMessage"></mark>
+
+        <hr style="margin: 4rem;"></hr>
+
+        <h2>Signup</h2>
+
+        <label for="email">Email</label>
+        <input x-model="email" type="email" id="email" placeholder="Email address">
+
+        <label for="password">Password</label>
+        <input x-model="password" type="password" id="password">
+
+        <label for="passwordConfirm">Confirm Password</label>
+        <input x-model="passwordConfirm" type="password" id="passwordConfirm">
+
+        <button @click="signup()">Signup</button>
+
+        <mark x-show="signupMessage" x-text="signupMessage"></mark>
+
+      </article>
+
+      <!-- show lists -->
+      <article x-show="!showLogin" x-transition style="margin-top: 10%;">
+        <h2>All users</h2>
+        <!-- <span x-text="users"></div> -->
+        <template x-for="user in users">
+          <div style="display:flex; justify-content: space-between; margin-top: 1rem">
+            <u><strong x-text="user.username" ></strong></u>
+          </div>
+        </template>
+      </article>
+
+    </div>
+    <script>
+      document.addEventListener('alpine:init', () => {
+        Alpine.data('example', () => ({
+          // pocketbase client
+          client: null,
+
+          // login / signup
+          showLogin: false,
+          email: null,
+          password: null,
+          passwordConfirm: null,
+          loginMessage: null,
+          signupMessage: null,
+
+          // lists data
+          users: null,
+
+          async init () {
+            // initialize pocketbase
+            console.log("Initialize")
+            console.log(this)
+            this.client = new PocketBase('/pb/');
+            console.log(this.client)
+            // capture invalid token
+            this.client.afterSend = function (response, data) {
+              if (response.status === 401) {
+                this.showLogin = true
+              }
+
+              return data
+            }
+
+            // if user is not logged in, show login / signup page
+            if (!window.localStorage.getItem('pocketbase_auth')) {
+              console.log("not logged in")
+              this.showLogin = true
+              return
+            }
+
+            // resume session
+            const auth = JSON.parse(window.localStorage.getItem('pocketbase_auth'))
+            this.client.authStore.save(auth.token, auth.model)
+
+            // fetch user list
+            this.getUsers()
+
+            // subscribe to live update events
+            this.subscribeToUsers()
+          },
+
+          // login
+          async login () {
+            try {
+              const user = await this.client.collection('users').authWithPassword(this.email, this.password)
+              this.getUsers()
+              this.subscribeToUsers()
+              this.showLogin = false
+              this.email = ''
+              this.password = ''
+            } catch (err) {
+              this.loginMessage = err.data.message
+            }
+          },
+
+          // signup
+          async signup () {
+            try {
+              const user = await this.client.collection('users').create({
+                email: this.email,
+                password: this.password,
+                passwordConfirm: this.passwordConfirm
+              })
+              this.email = ''
+              this.password = ''
+              this.passwordConfirm = ''
+              this.signupMessage = 'Success! Please, login.'
+            } catch (err) {
+              this.signupMessage = err.data.message
+              if (err.data.data.email) this.signupMessage += ` Email: ${err.data.data.email.message}`
+              if (err.data.data.password) this.signupMessage += ` Password: ${err.data.data.password.message}`
+              if (err.data.data.passwordConfirm) this.signupMessage += ` Password Confirm: ${err.data.data.passwordConfirm.message}`
+            }
+          },
+
+          // logout
+          async logout () {
+            this.client.authStore.clear()
+            this.showLogin = true
+          },
+
+          // lists functions
+          async subscribeToUsers () {
+            this.client.realtime.subscribe('users', e => {
+              if (e.action === 'create') this.users.push(e.record)
+              else if (e.action === 'delete') {
+                this.users = this.users.filter(l => l.id !== e.record.id)
+              }
+            })
+          },
+
+          async getUsers () {
+            const items = await this.client.collection('users').getFullList({})
+            this.users = items
+          }
+        }))
+      })
+
+    </script>
+  </body>
+</html>

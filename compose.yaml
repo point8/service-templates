@@ -1,25 +1,22 @@
 services:
-  streamlit:
+  alpinejs:
     build:
-      context: services/streamlit
+      context: services/alpinejs
     restart: unless-stopped
-    expose:
-      - 8501
+    volumes:
+      - alpinejs-app:/app
     networks:
       - local
-    depends_on:
-      - postgres
-  postgres:
-    image: postgres:latest
+  pocketbase:
+    build:
+      context: services/pocketbase
     restart: unless-stopped
     expose:
-      - 5432
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=pf9K6bCTkz2rgCzgN2AsWLRuK8
-      - POSTGRES_DB=example
+      - 8008
+    ports:
+      - 8008
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - pocketbase-data:/pb/pb_data
     networks:
       - local
   caddy:
@@ -32,11 +29,13 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
       - caddy-config:/config
+      - alpinejs-app:/app
     networks:
       - local
       - web
     depends_on:
-      - streamlit
+      - alpinejs
+      - pocketbase
 
 networks:
   web:
@@ -46,8 +45,7 @@ networks:
     driver: bridge
 
 volumes:
-  postgres-data:
-  mongodb-data:
-  redis-data:
   caddy-data:
   caddy-config:
+  pocketbase-data:
+  alpinejs-app:
