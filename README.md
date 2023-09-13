@@ -6,11 +6,13 @@ _(Public mirror: https://github.com/point8/service-templates)_
 
 ## Run your own TLS secured data (visualization) service with docker
 
-Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedocs.io/en/stable/index.html), [dash](https://dash.plotly.com/), [FastAPI](https://fastapi.tiangolo.com), or [svelte](https://svelte.dev) app as a cloud service with a simple password authentication and secured by HTTPS.
+Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedocs.io/en/stable/index.html), [dash](https://dash.plotly.com/), [FastAPI](https://fastapi.tiangolo.com), [AlpineJS](https://alpinejs.dev/), or [svelte](https://svelte.dev) app as a cloud service with a simple password authentication and secured by HTTPS.
 
 The repository consists of example apps and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
 
-Additionally NoSQL and SQL database services are available and a Redis service is configured to if one is needed.
+Additionally NoSQL and SQL database services are available and a Redis service is configured too if one is needed
+
+If you want to quickstart your development you can use [pocketbase.io](https://pocketbase.io/) as a backend.
 
 The service gets automatically deployed using [`ansible`](https://docs.ansible.com/ansible/latest/index.html) from inside the GitLab CI.
 
