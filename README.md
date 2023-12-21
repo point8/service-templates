@@ -23,11 +23,15 @@ Either have a look into our internal [documentation](https://ccauet.point8.work/
 pushd docs && poetry run mkdocs build && open build/index.html && popd
 ```
 
-## Smart Erosion
+## Smart Erosion & AutoPlan
 
 Point 8 is a partner in the research project SmartErosion. This tool was created as part of the research project. The project was supported by funds from the __European Regional Development Fund (ERDF) 2014-2020 "Investment for Growth and Jobs"__.
 
-<p float="left">
-  <img src="Ziel2NRW_RGB_1809_jpg.jpg" width="48%" />
-  <img src="EFRE_Foerderhinweis_englisch_farbig.jpg" width="48%" />
+The project was further developed and improved in the research project AutoPlan. The AutoPlan project was funded by the __Central Innovation Program for SMEs (Zentrale Innovationsprogramm Mittelstand – ZIM) of the German Federal Ministry of Economics and Climate Protection__.
+
+<p float="middle">
+  <img src="Ziel2NRW_RGB_1809_jpg.jpg" width="38%" />
+  <img src="bmwi.png" width="18%" />
+  <img src="zim.png" width="10%" />
+  <img src="EFRE_Foerderhinweis_englisch_farbig.jpg" width="32%" />
 </p>
