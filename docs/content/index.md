@@ -46,7 +46,7 @@ You can develop everything local
 
 * Spin everything up using (in the repository root, not inside the service template directory!)
     ```
-    docker-compose up --build
+    docker compose up --build
     ```
 * If you make changes repeat the last step.
 * Visit your page under [https://localhost](https://localhost) (You have override the browser warnings, see "Reverse Proxy and TLS").

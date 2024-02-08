@@ -5,13 +5,13 @@ In order to deploy your service, you need to login into your server using SSH.
 * Clone your repository
 * Spin everything up using
     ```
-    docker-compose up --build
+    docker compose up --build
     ```
 * If you make changes, update the repository on the server and repeat the last step.
-* Use `docker-compose start/stop` to start and stop your service and `docker-compose down` to stop it and remove all containers
+* Use `docker compose start/stop` to start and stop your service and `docker compose down` to stop it and remove all containers
 * If you are satisfied, you can run everything as a daemon with
     ```
-    docker-compose up --detach
+    docker compose up --detach
     ```
 * Visit your page under the designated URL
 
