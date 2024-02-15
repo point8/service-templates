@@ -1,4 +1,4 @@
-FROM point8/ubuntu-jammy-jellyfish-pyenv-poetry:v1
+FROM point8/ubuntu-jammy-jellyfish-pyenv-poetry:v2
 LABEL maintainer="Point 8 GmbH <kontakt@point-8.de>"
 
 WORKDIR /app
