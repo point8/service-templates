@@ -11,7 +11,7 @@ In order to deploy your service, you need to login into your server using SSH.
 * Use `docker compose start/stop` to start and stop your service and `docker compose down` to stop it and remove all containers
 * If you are satisfied, you can run everything as a daemon with
     ```
-    docker compose up --detach
+    docker compose up --detach --build
     ```
 * Visit your page under the designated URL
 

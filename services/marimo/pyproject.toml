@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "streamlit-standalone-template"
+version = "0.1.0"
+description = ""
+authors = ["Christophe Cauet <christophe@cauet.de>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+marimo = "^0.3.4"
+plotly = "^5.20.0"
+vega-datasets = "^0.9.0"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+black = "^24.3.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

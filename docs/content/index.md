@@ -6,7 +6,7 @@ _(Public mirror: https://github.com/point8/service-templates)_
 
 ## Run your own TLS secured data (visualization) service with docker
 
-Running your [streamlit](https://streamlit.io/), [voila](https://voila.readthedocs.io/en/stable/index.html), [dash](https://dash.plotly.com/), [FastAPI](https://fastapi.tiangolo.com), [AlpineJS](https://alpinejs.dev/), or [svelte](https://svelte.dev) app as a cloud service with a simple password authentication and secured by HTTPS.
+Running your [streamlit](https://streamlit.io/), [marimo](https://marimo.io/), [voila](https://voila.readthedocs.io/en/stable/index.html), [dash](https://dash.plotly.com/), [FastAPI](https://fastapi.tiangolo.com), [AlpineJS](https://alpinejs.dev/), or [svelte](https://svelte.dev) app as a cloud service with a simple password authentication and secured by HTTPS.
 
 The repository consists of example apps and a reverse proxy to automatically handle the HTTPS endpoint and TLS certificates. Everything is glued together and deployed using [`docker-compose`](https://docs.docker.com/compose/).
 
@@ -23,6 +23,7 @@ Fork the repo and then go through the following parts one by one. Please read th
 There are different service templates available:
 
 - [streamlit](services/streamlit.md)
+- [marimo](services/marimo.md)
 - [FastAPI](services/fastapi.md)
 - [voila](services/voila.md)
 - [dash](services/dash.md)
