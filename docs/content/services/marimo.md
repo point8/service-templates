@@ -1,4 +1,4 @@
-# Streamlit
+# Marimo
 
 Website: [marimo.io](https://streamlit.io/)
 
