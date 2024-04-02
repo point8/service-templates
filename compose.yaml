@@ -1,10 +1,10 @@
 services:
-  streamlit:
+  fastapi:
     build:
-      context: services/streamlit
+      context: services/fastapi
     restart: unless-stopped
     expose:
-      - 8501
+      - 8080
     networks:
       - local
     depends_on:
@@ -36,7 +36,7 @@ services:
       - local
       - web
     depends_on:
-      - streamlit
+      - fastapi
 
 networks:
   web:
