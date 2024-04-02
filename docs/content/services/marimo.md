@@ -1,6 +1,6 @@
 # Marimo
 
-Website: [marimo.io](https://streamlit.io/)
+Website: [marimo.io](https://marimo.io/)
 
 Everything is located in the `marimo/` directory. Feel free to add your own code. A basic app can be found in `marimo/notebook.py`.
 
@@ -9,7 +9,7 @@ Everything is located in the `marimo/` directory. Feel free to add your own code
 To change the command running the app, you need to adapt the last line in the `Dockerfile` to reflect those changes:
 
 ```
-CMD ["poetry", "run", "marimo", "run", "notebook.py", "-p", "8080"]
+CMD ["poetry", "run", "marimo", "run", "notebook.py", "--host", "0.0.0.0", "--port", "8080", "--headless"]
 ```
 
 ## docker-compose
@@ -17,7 +17,7 @@ CMD ["poetry", "run", "marimo", "run", "notebook.py", "-p", "8080"]
 Add the following configuration block as a service to the `compose.yaml` file:
 
 ```yaml
-streamlit:
+marimo:
   build:
     context: services/marimo
   restart: unless-stopped

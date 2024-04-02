@@ -18,10 +18,10 @@ RUN poetry install &&\
 
 COPY . ./
 
-EXPOSE 8501
+EXPOSE 8080
 
 RUN useradd -m point8
 USER point8
 
 ENTRYPOINT []
-CMD ["poetry", "run", "marimo", "run", "notebook.py", "-p", "8080"]
+CMD ["poetry", "run", "marimo", "run", "notebook.py", "--host", "0.0.0.0", "--port", "8080", "--headless"]
